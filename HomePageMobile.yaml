@@ -1,0 +1,205 @@
+wallpanel:
+  enabled: true
+  idle_time: 30
+  hide_toolbar: false
+  hide_sidebar: false
+  fullscreen: true
+  camera_motion_detection_enabled: false
+  views:
+    - title: Idle
+      path: idle
+      panel: true
+views:
+  - title: Home
+    header:
+      card:
+        type: markdown
+        content: "#Hello"
+        text_only: true
+    sections:
+      - type: grid
+        cards:
+          - states:
+              - arm_home
+              - arm_away
+            type: alarm-panel
+            entity: alarm_control_panel.alarm_panel_pro_8d444c_house_alarm
+            name: Home Alarm
+          - type: heading
+            heading_style: title
+      - type: grid
+        cards:
+          - type: heading
+            icon: mdi:window-closed
+            heading: Windows
+            heading_style: title
+          - type: entities
+            entities:
+              - entity: binary_sensor.konnected_fce8c08d444c_downstairs_windows
+                icon: mdi:window-closed
+                name: Downstair Windows
+              - entity: binary_sensor.konnected_fce8c08d444c_upstairs_west_windows
+                name: Upstairs West Windows
+              - entity: binary_sensor.konnected_fce8c08d444c_upstars_east_windows
+                name: Upstairs East Windows
+          - type: heading
+            icon: mdi:door
+            heading_style: title
+            heading: Doors
+          - type: entities
+            entities:
+              - entity: binary_sensor.konnected_fce8c08d444c_front_door
+                name: Front Door
+              - entity: binary_sensor.konnected_fce8c08d444c_garage_door
+                name: Back Garage Door
+              - entity: binary_sensor.konnected_fce8c08d444c_rear_door
+                name: Patio Door
+              - entity: binary_sensor.konnected_fce8c08d444c_side_door
+                name: Side Door
+          - type: heading
+            heading_style: title
+      - type: grid
+        cards:
+          - type: heading
+            icon: mdi:garage
+            heading: "Garage "
+            heading_style: title
+          - type: entities
+            entities:
+              - entity: cover.konnected_ba1d90_garage_door
+                name: Garage Big Door
+                secondary_info: state
+              - entity: light.konnected_ba1d90_garage_light
+                name: Garage Opener Light
+                secondary_info: state
+              - entity: lock.konnected_ba1d90_lock
+                name: Garage Big Door Lock
+                secondary_info: state
+          - type: heading
+            icon: mdi:motion-sensor
+            heading: Motion Sensor
+            heading_style: title
+          - type: entities
+            entities:
+              - entity: binary_sensor.konnected_fce8c08d444c_downstairs_motion_sensor
+                name: Downstair Motion
+                secondary_info: none
+              - entity: binary_sensor.konnected_fce8c08d444c_upstairs_motion_sensor
+                name: Upstair Motion
+            state_color: true
+          - type: heading
+            heading: Front Door
+            heading_style: title
+            grid_options:
+              columns: 6
+              rows: 1
+          - type: heading
+            heading: Driveway East
+            heading_style: title
+            grid_options:
+              columns: 6
+              rows: 1
+          - type: tile
+            entity: camera.144
+            show_entity_picture: true
+            vertical: false
+            features_position: bottom
+            grid_options:
+              columns: 6
+              rows: 1
+          - type: tile
+            entity: camera.144_2
+            show_entity_picture: true
+          - type: heading
+            heading_style: title
+    cards: []
+    visible:
+      - user: 583b1156a67246d2a321d59be785deca
+      - user: ecc1888674434dd5820cf80dc086cddd
+  - type: sections
+    max_columns: 6
+    title: Cameras
+    path: cameras
+    sections:
+      - type: grid
+        cards:
+          - type: picture-entity
+            entity: camera.144_2
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.144_3
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.144_6
+      - type: grid
+        cards:
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.144
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.144_4
+      - type: grid
+        cards:
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.144_7
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.144_5
+    cards: []
+    visible:
+      - user: 583b1156a67246d2a321d59be785deca
+      - user: ecc1888674434dd5820cf80dc086cddd
+  - title: Idle
+    path: idle
+    panel: true
+    swipe: false
+    visible:
+      - user: nonexistent_user
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:weather-card
+            entity: weather.forecast_home
+            name: null
+            details: true
+            forecast: true
+            number_of_forecasts: 6
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-home-phone
+          - type: custom:clock-weather-card
+            entity: weather.forecast_home
+            title: King City
+            time_pattern: HH:mm
+            time_format: 24
+            date_pattern: DDDD
+            weather_icon_type: line
+            animated_icon: true
+            sun_entity: sun.sun
+            forecast_rows: 7
+            hide_clock: false
+            hide_date: false
+            show_decimal: false
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-home-phone
