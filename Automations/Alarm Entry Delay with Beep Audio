@@ -1,0 +1,57 @@
+alias: Alarm Entry Delay with Beep Audio
+description: Starts entry delay timer and plays beeps, stopping on disarm/trigger
+triggers:
+  - type: opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: eba03c3e56c6335c182bfb24c4f32b42
+    domain: binary_sensor
+    trigger: device
+  - type: opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: 9f9389e3703f36d83b4cc2e0ae48073e
+    domain: binary_sensor
+    trigger: device
+conditions:
+  - condition: device
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    domain: alarm_control_panel
+    entity_id: 9cd35b7b45852f84727fecdc1489a1fb
+    type: is_armed_away
+  - condition: state
+    entity_id: timer.alarm_entry_delay
+    state: idle
+    enabled: true
+actions:
+  - action: timer.start
+    target:
+      entity_id: timer.alarm_entry_delay
+    data:
+      duration:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  - action: media_player.turn_on
+    target:
+      entity_id: group.kiosks
+    data: {}
+  - action: media_player.play_media
+    data:
+      media:
+        media_content_id: media-source://media_source/local/beep.mp3
+        media_content_type: audio/mpeg
+    target:
+      device_id: 2c7b284941901c29c784db2bdd65146c
+  - wait_for_trigger:
+      - entity_id: timer.alarm_entry_delay
+        to: idle
+        trigger: state
+      - entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+        to: disarmed
+        trigger: state
+  - action: media_player.media_stop
+    target:
+      entity_id: group.kiosks
+  - action: timer.cancel
+    target:
+      entity_id: timer.alarm_entry_delay
+mode: restart
