@@ -1,0 +1,876 @@
+- id: '1752016558315'
+  alias: Beeper
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - group.door_sensors
+    - group.window_sensors
+    from:
+    - 'on'
+    to:
+    - 'off'
+  conditions: []
+  actions:
+  - device_id: 88c9561ecaae58638fe31b1dcf540766
+    domain: button
+    entity_id: 85b62c75fb106e57c09e892703ad667b
+    type: press
+  mode: single
+- id: '1765839535266'
+  alias: Side Door Open
+  description: ''
+  triggers:
+  - type: opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: 9f9389e3703f36d83b4cc2e0ae48073e
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/google_translate?message=Side+Door+Open&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Side Door Open
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/google_translate?message=Side+Door+Open&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  - action: media_player.turn_on
+    target:
+      entity_id: group.kiosks
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+  - action: androidtv.adb_command
+    target:
+      entity_id: media_player.door_keypad
+    data:
+      command: wm dismiss-keyguard
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+  - action: androidtv.adb_command
+    target:
+      entity_id: media_player.door_keypad
+    data:
+      command: monkey -p io.homeassistant.companion.android 1
+  mode: single
+- id: '1765839887081'
+  alias: Side Door Closed
+  description: ''
+  triggers:
+  - type: not_opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: 9f9389e3703f36d83b4cc2e0ae48073e
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/tts.google_translate_en_com?message=Side+Door+Closed&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Side Door Closed
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/tts.google_translate_en_com?message=Side+Door+Closed&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  - type: turn_on
+    device_id: 9f6432de85f28435fd0f51b82f1f7580
+    entity_id: 65af495c476600eeeb561026e3f4d78e
+    domain: switch
+  mode: single
+- id: '1765841990976'
+  alias: Front Door Open
+  description: ''
+  triggers:
+  - type: opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: eba03c3e56c6335c182bfb24c4f32b42
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/tts.google_translate_en_com?message=Front+Door+Opened&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Front Door Opened
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/tts.google_translate_en_com?message=Front+Door+Opened&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  - action: media_player.turn_on
+    target:
+      entity_id: group.kiosks
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+  - action: androidtv.adb_command
+    target:
+      entity_id: media_player.a12_kiosk
+    data:
+      command: wm dismiss-keyguard
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+  - action: androidtv.adb_command
+    target:
+      entity_id: media_player.a12_kiosk
+    data:
+      command: monkey -p io.homeassistant.companion.android 1
+  mode: single
+- id: '1765842062631'
+  alias: Front Door Closed
+  description: ''
+  triggers:
+  - type: not_opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: eba03c3e56c6335c182bfb24c4f32b42
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/google_translate?message=Front+Door+Closed&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Front Door Closed
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/google_translate?message=Front+Door+Closed&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  mode: single
+- id: '1765842170178'
+  alias: Back Door Open
+  description: ''
+  triggers:
+  - type: opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: 063ab63b5fa66b9acb26bae3ca22124f
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/google_translate?message=Back+Door+Open&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Back Door Open
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/google_translate?message=Back+Door+Open&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  mode: single
+- id: '1765842264810'
+  alias: Back Door Closed
+  description: ''
+  triggers:
+  - type: not_opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: 063ab63b5fa66b9acb26bae3ca22124f
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/google_translate?message=Back+Door+Closed&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Back Door Closed
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/google_translate?message=Back+Door+Closed&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  mode: single
+- id: '1765842687942'
+  alias: Back Garage Door Open
+  description: ''
+  triggers:
+  - type: opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: 8c59bc701c2877b7a4ec63398e1faa6c
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    target:
+      entity_id: media_player.door_keypad
+    data:
+      media:
+        media_content_id: media-source://tts/tts.google_translate_en_com?message=Back+Garage+Door+Open&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Back Garage Door Open
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/tts.google_translate_en_com?message=Back+Garage+Door+Open&language=en-ca
+          browse_entity_id: media_player.door_keypad
+  mode: single
+- id: '1765842758921'
+  alias: Back Garage Door Closed
+  description: ''
+  triggers:
+  - type: not_opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: 8c59bc701c2877b7a4ec63398e1faa6c
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/tts.google_translate_en_com?message=Back+Garage+Door+Closed&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Back Garage Door Closed
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/tts.google_translate_en_com?message=Back+Garage+Door+Closed&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  mode: single
+- id: '1765842993271'
+  alias: Garage Door Open
+  description: ''
+  triggers:
+  - device_id: 59fe223bb8cfb1b6649949fbd870ad97
+    domain: cover
+    entity_id: db8fb0e904ed97ece2467c6e4b7f1637
+    type: opened
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/tts.google_translate_en_com?message=Garage+Door+Open&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Garage Door Open
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/tts.google_translate_en_com?message=Garage+Door+Open&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  mode: single
+- id: '1765843045315'
+  alias: 'Garage Door Closed '
+  description: ''
+  triggers:
+  - device_id: 59fe223bb8cfb1b6649949fbd870ad97
+    domain: cover
+    entity_id: db8fb0e904ed97ece2467c6e4b7f1637
+    type: closed
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/tts.google_translate_en_com?message=Garage+Door+Closed&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Garage Door Closed
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/tts.google_translate_en_com?message=Garage+Door+Closed&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  mode: single
+- id: '1765845393498'
+  alias: Upstairs East Windows Opened
+  description: ''
+  triggers:
+  - type: opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: 8509326e3a9389d73b5fe5a8b1f241ec
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/google_translate?message=Upstairs+East+Windows+Open&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Upstairs East Windows Open
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/google_translate?message=Upstairs+East+Windows+Open&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  mode: single
+- id: '1765845637382'
+  alias: 'Upstairs East Windows Closed '
+  description: ''
+  triggers:
+  - type: not_opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: 8509326e3a9389d73b5fe5a8b1f241ec
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/google_translate?message=Upstairs+East+Windows+Closed&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Upstairs East Windows Closed
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/google_translate?message=Upstairs+East+Windows+Closed&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  mode: single
+- id: '1765846054115'
+  alias: 'Upstairs West Windows Opened  '
+  description: ''
+  triggers:
+  - type: opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: 3c17b2dbafb35174d00c91447e5a9cc4
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/google_translate?message=Upstairs+West+Windows+Open&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Upstairs West Windows Open
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/google_translate?message=Upstairs+West+Windows+Open&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  mode: single
+- id: '1765846218275'
+  alias: Upstairs West Windows Closed
+  description: ''
+  triggers:
+  - type: not_opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: 3c17b2dbafb35174d00c91447e5a9cc4
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/google_translate?message=Upstairs+West+Windows+Closed&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Upstairs West Windows Closed
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/google_translate?message=Upstairs+West+Windows+Closed&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  mode: single
+- id: '1765846754957'
+  alias: Downstairs Windows Opened
+  description: ''
+  triggers:
+  - type: opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: a1e1fa3fab3490c4b0e6eb0703745d58
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/google_translate?message=Downstairs+Windows+Open&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Downstairs Windows Open
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/google_translate?message=Downstairs+Windows+Open&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  mode: single
+- id: '1765846947030'
+  alias: Downstairs Windows Closed
+  description: ''
+  triggers:
+  - type: not_opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: a1e1fa3fab3490c4b0e6eb0703745d58
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media:
+        media_content_id: media-source://tts/google_translate?message=Downstairs+Windows+Closed&language=en-ca
+        media_content_type: audio/mp3
+        metadata:
+          title: Downstairs Windows Closed
+          thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/google_translate?message=Downstairs+Windows+Closed&language=en-ca
+          browse_entity_id: media_player.door_keypad
+    target:
+      device_id: 9f6432de85f28435fd0f51b82f1f7580
+  mode: single
+- id: '1766530539439'
+  alias: Force Kiosk Battery 100%
+  description: Spoof Kiosks battery to 100%
+  triggers:
+  - minutes: /10
+    trigger: time_pattern
+  - event: start
+    trigger: homeassistant
+  actions:
+  - data:
+      command: dumpsys battery set level 100
+    action: androidtv.adb_command
+    target:
+      entity_id: group.kiosks
+  - delay: 00:00:02
+  - data:
+      command: dumpsys battery set status 1
+    action: androidtv.adb_command
+    target:
+      entity_id: group.kiosks
+  mode: single
+- id: '1767296883500'
+  alias: Email Alert for Alarm
+  description: Send email when alarm is triggered
+  triggers:
+  - entity_id:
+    - switch.konnected_siren
+    trigger: state
+    to:
+    - 'on'
+  actions:
+  - data:
+      title: "\U0001F6A8ALARM\U0001F6A8"
+      message: 'Home alarm triggered at {{ now().strftime(''%m-%d %H:%M:%S'') }}
+
+        '
+    action: notify.household_email
+  - type: turn_on
+    device_id: 9f6432de85f28435fd0f51b82f1f7580
+    entity_id: 65af495c476600eeeb561026e3f4d78e
+    domain: switch
+  mode: single
+- id: '1767382926413'
+  alias: Alarm Entry Delay with Beep Audio
+  description: Starts entry delay timer and plays beeps, stopping on disarm/trigger
+  triggers:
+  - type: opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: eba03c3e56c6335c182bfb24c4f32b42
+    domain: binary_sensor
+    trigger: device
+  - type: opened
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    entity_id: 9f9389e3703f36d83b4cc2e0ae48073e
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: device
+    device_id: 88c9561ecaae58638fe31b1dcf540766
+    domain: alarm_control_panel
+    entity_id: 9cd35b7b45852f84727fecdc1489a1fb
+    type: is_armed_away
+  - condition: state
+    entity_id: timer.alarm_entry_delay
+    state: idle
+    enabled: true
+  actions:
+  - action: timer.start
+    target:
+      entity_id: timer.alarm_entry_delay
+    data:
+      duration:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  - action: media_player.turn_on
+    target:
+      entity_id: group.kiosks
+    data: {}
+  - action: media_player.play_media
+    data:
+      media:
+        media_content_id: media-source://media_source/local/beep.mp3
+        media_content_type: audio/mpeg
+    target:
+      device_id: 2c7b284941901c29c784db2bdd65146c
+  - wait_for_trigger:
+    - entity_id: timer.alarm_entry_delay
+      to: idle
+      trigger: state
+    - entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+      to: disarmed
+      trigger: state
+  - action: media_player.media_stop
+    target:
+      entity_id: group.kiosks
+  - action: timer.cancel
+    target:
+      entity_id: timer.alarm_entry_delay
+  mode: restart
+- id: '1784415662679'
+  alias: Alarm Exit Delay with Song Audio
+  description: Starts exit delay timer only when all alarm sensors are closed
+  triggers:
+  - entity_id:
+    - alarm_control_panel.alarm_panel_pro_house_alarm
+    to:
+    - arming
+    trigger: state
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ states(''input_text.alarm_open_sensors'') | trim != ''''
+          }}'
+      sequence:
+      - action: alarm_control_panel.alarm_disarm
+        target:
+          entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.alarm_arm_failed
+      - action: media_player.turn_on
+        target:
+          entity_id: group.kiosks
+      - action: media_player.turn_on
+        target:
+          entity_id: media_player.a12_kiosk
+      - delay:
+          seconds: 1
+      - action: androidtv.adb_command
+        target:
+          entity_id: media_player.a12_kiosk
+        data:
+          command: wm dismiss-keyguard
+      - delay:
+          seconds: 1
+      - action: androidtv.adb_command
+        target:
+          entity_id: media_player.a12_kiosk
+        data:
+          command: monkey -p io.homeassistant.companion.android 1
+      - stop: Alarm not armed - open sensors detected
+    default:
+    - action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.alarm_arm_failed
+    - action: timer.start
+      target:
+        entity_id: timer.alarm_entry_delay
+    - action: media_player.turn_on
+      target:
+        entity_id: group.kiosks
+    - action: media_player.play_media
+      target:
+        device_id: 2c7b284941901c29c784db2bdd65146c
+      data:
+        media:
+          media_content_id: media-source://media_source/local/timer.mp3
+          media_content_type: audio/mpeg
+    - wait_for_trigger:
+      - entity_id: timer.alarm_entry_delay
+        to: idle
+        trigger: state
+      - entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+        to: disarmed
+        trigger: state
+      - entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+        to: armed_away
+        trigger: state
+      - entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+        to: armed_home
+        trigger: state
+    - action: media_player.media_stop
+      target:
+        device_id: 2c7b284941901c29c784db2bdd65146c
+    - action: timer.cancel
+      target:
+        entity_id: timer.alarm_entry_delay
+  mode: restart
+- id: '1785368065999'
+  alias: Break in Alarm
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.konnected_rear_door
+    - binary_sensor.konnected_garage_door
+    - binary_sensor.window_sensors
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+    state: armed_away
+  actions:
+  - action: alarm_control_panel.alarm_trigger
+    target:
+      entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+- id: '1785368264036'
+  alias: Alarm Auto Disarm After 10 Minutes
+  description: Automatically disarms the alarm if it has been sounding for 10 minutes.
+  triggers:
+  - trigger: state
+    entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+    to: triggered
+  conditions: []
+  actions:
+  - delay:
+      minutes: 10
+  - condition: state
+    entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+    state: triggered
+  - action: alarm_control_panel.alarm_disarm
+    target:
+      entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+  mode: restart
+- id: '1790805135916'
+  alias: Alarm Open Sensor Tracker
+  description: Maintains a list of all currently open alarm sensors
+  triggers:
+  - entity_id:
+    - group.window_sensors
+    - group.door_sensors
+    trigger: state
+  - trigger: homeassistant
+    event: start
+  actions:
+  - action: input_text.set_value
+    target:
+      entity_id: input_text.alarm_open_sensors
+    data:
+      value: "{% set open_sensors = [] %}\n{% if is_state('binary_sensor.konnected_front_door',
+        'on') %}\n  {% set open_sensors = open_sensors + ['Front Door'] %}\n{% endif
+        %}\n{% if is_state('binary_sensor.konnected_side_door', 'on')
+        %}\n  {% set open_sensors = open_sensors + ['Side Door'] %}\n{% endif %}\n{%
+        if is_state('binary_sensor.konnected_rear_door', 'on') %}\n  {%
+        set open_sensors = open_sensors + ['Rear Door'] %}\n{% endif %}\n{% if is_state('binary_sensor.konnected_garage_door',
+        'on') %}\n  {% set open_sensors = open_sensors + ['Garage Door'] %}\n{% endif
+        %}\n{% if is_state('binary_sensor.konnected_upstairs_east_windows',
+        'on') %}\n  {% set open_sensors = open_sensors + ['Upstairs East Windows']
+        %}\n{% endif %}\n{% if is_state('binary_sensor.konnected_upstairs_west_windows',
+        'on') %}\n  {% set open_sensors = open_sensors + ['Upstairs West Windows']
+        %}\n{% endif %}\n{% if is_state('binary_sensor.konnected_downstairs_windows',
+        'on') %}\n  {% set open_sensors = open_sensors + ['Downstairs Windows'] %}\n{%
+        endif %}\n{{ open_sensors | join(', ') }}"
+  mode: restart
+- id: '1791162530563'
+  alias: Alarm Arm Home Validation
+  description: Validates all alarm sensors before arming Home
+  triggers: []
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ states(''input_text.alarm_open_sensors'') | trim != ''''
+          }}'
+      sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.alarm_arm_failed
+      - stop: Alarm not armed - open sensors detected
+    default:
+    - action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.alarm_arm_failed
+    - action: alarm_control_panel.alarm_arm_home
+      target:
+        entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+  mode: single
+- id: '1791164463227'
+  alias: Alarm Arm Away Validation
+  description: Validates all alarm sensors before arming Away
+  triggers: []
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ states(''input_text.alarm_open_sensors'') | trim != ''''
+          }}'
+      sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.alarm_arm_failed
+        data: {}
+      - stop: Alarm not armed - open sensors detected
+    default:
+    - action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.alarm_arm_failed
+    - action: alarm_control_panel.alarm_arm_away
+      target:
+        entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+  mode: single
