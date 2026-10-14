@@ -5,28 +5,53 @@ wallpanel:
   hide_sidebar: false
   fullscreen: true
   camera_motion_detection_enabled: false
-  views:
-    - title: Idle
-      path: idle
-      panel: true
 views:
   - title: Home
-    header:
-      card:
-        type: markdown
-        content: "#Hello"
-        text_only: true
     sections:
       - type: grid
         cards:
-          - states:
-              - arm_home
-              - arm_away
-            type: alarm-panel
-            entity: alarm_control_panel.alarm_panel_pro_8d444c_house_alarm
-            name: Home Alarm
           - type: heading
+            icon: mdi:shield-home
+            heading: Home Alarm
             heading_style: title
+          - type: button
+            name: Arm Home
+            icon: mdi:shield-home
+            show_state: false
+            tap_action:
+              action: call-service
+              service: automation.trigger
+              target:
+                entity_id: automation.alarm_arm_away_validated_test
+          - type: button
+            name: Arm Away
+            icon: mdi:shield-lock
+            show_state: false
+            tap_action:
+              action: call-service
+              service: automation.trigger
+              target:
+                entity_id: automation.alarm_arm_away_validated_test
+          - states: []
+            type: alarm-panel
+            entity: alarm_control_panel.alarm_panel_pro_house_alarm
+            name: Home Alarm
+      - type: grid
+        cards:
+          - type: conditional
+            conditions:
+              - entity: input_boolean.alarm_arm_failed
+                state: "on"
+            card:
+              type: markdown
+              content: |
+                # ⚠️ ALARM NOT ARMED ⚠️
+
+                The following sensor(s) are open:
+
+                **{{ states('input_text.alarm_open_sensors') }}**
+
+                Please close them and try again.
       - type: grid
         cards:
           - type: heading
@@ -35,26 +60,26 @@ views:
             heading_style: title
           - type: entities
             entities:
-              - entity: binary_sensor.konnected_fce8c08d444c_downstairs_windows
+              - entity: binary_sensor.konnected_downstairs_windows
                 icon: mdi:window-closed
-                name: Downstair Windows
-              - entity: binary_sensor.konnected_fce8c08d444c_upstairs_west_windows
+                name: Downstairs Windows
+              - entity: binary_sensor.konnected_upstairs_west_windows
                 name: Upstairs West Windows
-              - entity: binary_sensor.konnected_fce8c08d444c_upstars_east_windows
+              - entity: binary_sensor.konnected_upstairs_east_windows
                 name: Upstairs East Windows
           - type: heading
             icon: mdi:door
-            heading_style: title
             heading: Doors
+            heading_style: title
           - type: entities
             entities:
-              - entity: binary_sensor.konnected_fce8c08d444c_front_door
+              - entity: binary_sensor.konnected_front_door
                 name: Front Door
-              - entity: binary_sensor.konnected_fce8c08d444c_garage_door
+              - entity: binary_sensor.konnected_garage_door
                 name: Back Garage Door
-              - entity: binary_sensor.konnected_fce8c08d444c_rear_door
+              - entity: binary_sensor.konnected_rear_door
                 name: Patio Door
-              - entity: binary_sensor.konnected_fce8c08d444c_side_door
+              - entity: binary_sensor.konnected_side_door
                 name: Side Door
           - type: heading
             heading_style: title
@@ -66,13 +91,13 @@ views:
             heading_style: title
           - type: entities
             entities:
-              - entity: cover.konnected_ba1d90_garage_door
+              - entity: cover.konnected_garage_door
                 name: Garage Big Door
                 secondary_info: state
-              - entity: light.konnected_ba1d90_garage_light
+              - entity: light.konnected_garage_light
                 name: Garage Opener Light
                 secondary_info: state
-              - entity: lock.konnected_ba1d90_lock
+              - entity: lock.konnected_lock
                 name: Garage Big Door Lock
                 secondary_info: state
           - type: heading
@@ -81,10 +106,10 @@ views:
             heading_style: title
           - type: entities
             entities:
-              - entity: binary_sensor.konnected_fce8c08d444c_downstairs_motion_sensor
+              - entity: binary_sensor.konnected_downstairs_motion_sensor
                 name: Downstair Motion
                 secondary_info: none
-              - entity: binary_sensor.konnected_fce8c08d444c_upstairs_motion_sensor
+              - entity: binary_sensor.konnected_upstairs_motion_sensor
                 name: Upstair Motion
             state_color: true
           - type: heading
@@ -100,7 +125,7 @@ views:
               columns: 6
               rows: 1
           - type: tile
-            entity: camera.144
+            entity: camera.1_144
             show_entity_picture: true
             vertical: false
             features_position: bottom
@@ -108,7 +133,7 @@ views:
               columns: 6
               rows: 1
           - type: tile
-            entity: camera.144_2
+            entity: camera.1_144_2
             show_entity_picture: true
           - type: heading
             heading_style: title
@@ -124,19 +149,19 @@ views:
       - type: grid
         cards:
           - type: picture-entity
-            entity: camera.144_2
+            entity: camera.1_144_2
           - show_state: true
             show_name: true
             camera_view: auto
             fit_mode: cover
             type: picture-entity
-            entity: camera.144_3
+            entity: camera.1_144_3
           - show_state: true
             show_name: true
             camera_view: auto
             fit_mode: cover
             type: picture-entity
-            entity: camera.144_6
+            entity: camera.1_144_6
       - type: grid
         cards:
           - show_state: true
@@ -144,13 +169,13 @@ views:
             camera_view: auto
             fit_mode: cover
             type: picture-entity
-            entity: camera.144
+            entity: camera.1_144
           - show_state: true
             show_name: true
             camera_view: auto
             fit_mode: cover
             type: picture-entity
-            entity: camera.144_4
+            entity: camera.1_144_4
       - type: grid
         cards:
           - show_state: true
@@ -158,13 +183,13 @@ views:
             camera_view: auto
             fit_mode: cover
             type: picture-entity
-            entity: camera.144_7
+            entity: camera.1_144_7
           - show_state: true
             show_name: true
             camera_view: auto
             fit_mode: cover
             type: picture-entity
-            entity: camera.144_5
+            entity: camera.1_144_5
     cards: []
     visible:
       - user: 583b1156a67246d2a321d59be785deca
@@ -189,7 +214,7 @@ views:
               navigation_path: /dashboard-home-phone
           - type: custom:clock-weather-card
             entity: weather.forecast_home
-            title: King City
+            title: Toronto
             time_pattern: HH:mm
             time_format: 24
             date_pattern: DDDD
