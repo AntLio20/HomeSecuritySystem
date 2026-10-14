@@ -1,0 +1,23 @@
+alias: Alarm Arm Away Validation
+description: Validates all alarm sensors before arming Away
+triggers: []
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ states('input_text.alarm_open_sensors') | trim != '' }}"
+        sequence:
+          - action: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.alarm_arm_failed
+            data: {}
+          - stop: Alarm not armed - open sensors detected
+    default:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.alarm_arm_failed
+      - action: alarm_control_panel.alarm_arm_away
+        target:
+          entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+mode: single
