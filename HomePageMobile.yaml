@@ -107,10 +107,10 @@ views:
           - type: entities
             entities:
               - entity: binary_sensor.konnected_downstairs_motion_sensor
-                name: Downstair Motion
+                name: Downstairs Motion
                 secondary_info: none
               - entity: binary_sensor.konnected_upstairs_motion_sensor
-                name: Upstair Motion
+                name: Upstairs Motion
             state_color: true
           - type: heading
             heading: Front Door
