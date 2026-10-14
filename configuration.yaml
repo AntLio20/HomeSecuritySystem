@@ -1,0 +1,38 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Include other YAML files
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+group: !include groups.yaml
+
+# Text-to-speech configuration
+tts:
+  - platform: google_translate
+    language: "en"
+
+# Media player configuration
+media_player:
+  - platform: vlc
+    name: VLC Player
+
+# Alarm notification configuration
+notify:
+  - name: household_email
+    platform: smtp
+    server: smtp.gmail.com
+    port: ###
+    encryption: ###
+    timeout: 15
+    sender: ###@gmail.com
+    username: ###@gmail.com
+    password: !secret gmail_app_password
+    recipient:
+      - ###@gmail.com
+      - ###@gmail.com
+      - ###@gmail.com
