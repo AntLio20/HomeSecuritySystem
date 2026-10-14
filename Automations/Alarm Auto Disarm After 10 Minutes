@@ -1,0 +1,17 @@
+alias: Alarm Auto Disarm After 10 Minutes
+description: Automatically disarms the alarm if it has been sounding for 10 minutes.
+triggers:
+  - trigger: state
+    entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+    to: triggered
+conditions: []
+actions:
+  - delay:
+      minutes: 10
+  - condition: state
+    entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+    state: triggered
+  - action: alarm_control_panel.alarm_disarm
+    target:
+      entity_id: alarm_control_panel.alarm_panel_pro_house_alarm
+mode: restart
