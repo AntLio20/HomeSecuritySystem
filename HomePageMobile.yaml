@@ -6,7 +6,7 @@ wallpanel:
   fullscreen: true
   camera_motion_detection_enabled: false
 views:
-  - title: Home
+  - title: Homepage
     sections:
       - type: grid
         cards:
