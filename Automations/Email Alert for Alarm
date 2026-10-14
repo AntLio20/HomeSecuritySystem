@@ -1,0 +1,19 @@
+alias: Email Alert for Alarm
+description: Send email when alarm is triggered
+triggers:
+  - entity_id:
+      - switch.konnected_siren
+    trigger: state
+    to:
+      - "on"
+actions:
+  - data:
+      title: 🚨ALARM🚨
+      message: |
+        Home alarm triggered at {{ now().strftime('%m-%d %H:%M:%S') }}
+    action: notify.household_email
+  - type: turn_on
+    device_id: 9f6432de85f28435fd0f51b82f1f7580
+    entity_id: 65af495c476600eeeb561026e3f4d78e
+    domain: switch
+mode: single
